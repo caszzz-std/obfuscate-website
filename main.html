@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Obfuscate Code Pro</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #000000; /* Nền đen */
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background-color: #1a1a1a; /* Khung xám nhạt */
+            padding: 35px;
+            border-radius: 16px; /* Bo tròn góc */
+            box-shadow: 0 12px 35px rgba(255, 255, 255, 0.08), 0 5px 15px rgba(0, 0, 0, 0.9); /* Bóng tinh tế */
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #333333; /* Viền tròn góc tối nhẹ */
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #38bdf8;
+            letter-spacing: 0.5px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #a1a1aa;
+            font-size: 14px;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #121212;
+            border: 1px solid #3f3f46;
+            border-radius: 8px;
+            color: #f8fafc;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        textarea:focus, input[type="text"]:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+        }
+        textarea {
+            height: 130px;
+            resize: vertical;
+        }
+        .btn {
+            width: 100%;
+            padding: 13px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+        }
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+        .btn:active {
+            transform: scale(0.99);
+        }
+        .btn-success {
+            background-color: #059669;
+        }
+        .btn-success:hover {
+            background-color: #047857;
+        }
+        /* Hiệu ứng vòng quay loading */
+        .loading-section {
+            display: none;
+            text-align: center;
+            padding: 25px 0;
+        }
+        .spinner {
+            border: 4px solid #27272a;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border-top-color: #38bdf8;
+            animation: spin 0.9s linear infinite;
+            margin: 0 auto 15px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .status-text {
+            color: #38bdf8;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .result-section {
+            display: none;
+            margin-top: 25px;
+            border-top: 1px solid #2d2d2d;
+            padding-top: 20px;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🔒 Trình Obfuscate Mã Nguồn</h2>
+
+    <!-- Bước 1: Nhập nội dung -->
+    <div class="form-group" id="inputGroup">
+        <label for="inputContent">Nội dung cần obfuscate:</label>
+        <textarea id="inputContent" placeholder="Dán code hoặc link webhook của bạn vào đây..."></textarea>
+    </div>
+
+    <button class="btn" id="btnAction" onclick="startProcess()">Xác nhận</button>
+
+    <!-- Vòng quay 5 - 10 giây -->
+    <div class="loading-section" id="loadingSection">
+        <div class="spinner"></div>
+        <div class="status-text" id="statusText">Đang khởi tạo thuật toán mã hóa...</div>
+    </div>
+
+    <!-- Bước 2: Nhập tên file & tải về -->
+    <div class="result-section" id="resultSection">
+        <div class="form-group">
+            <label for="fileName">Nhập tên file (.txt):</label>
+            <input type="text" id="fileName" value="protected_code">
+        </div>
+        <button class="btn btn-success" onclick="downloadFile()">Tạo & Tải về file .txt</button>
+    </div>
+</div>
+
+<script>
+    let finalObfuscatedData = "";
+
+    function startProcess() {
+        const content = document.getElementById('inputContent').value.trim();
+        if (!content) {
+            alert("Vui lòng nhập nội dung cần obfuscate!");
+            return;
+        }
+
+        // Ẩn ô nhập & nút xác nhận, hiện vòng quay loading
+        document.getElementById('inputGroup').style.display = 'none';
+        document.getElementById('btnAction').style.display = 'none';
+        document.getElementById('loadingSection').style.display = 'block';
+
+        // Random thời gian từ 5 đến 10 giây (5000ms - 10000ms)
+        const randomDelay = Math.floor(Math.random() * 5000) + 5000;
+
+        const messages = [
+            "Đang phân tích cú pháp code...",
+            "Đang tạo bảng mã Hex ngẫu nhiên...",
+            "Đang áp dụng lớp bảo vệ XOR sâu...",
+            "Đang cấu trúc lại luồng thực thi...",
+            "Đang hoàn tất gói mã hóa..."
+        ];
+
+        let idx = 0;
+        const msgInterval = setInterval(() => {
+            if (idx < messages.length) {
+                document.getElementById('statusText').innerText = messages[idx];
+                idx++;
+            }
+        }, randomDelay / messages.length);
+
+        // Sau khi chạy xong thời gian giả lập
+        setTimeout(() => {
+            clearInterval(msgInterval);
+            
+            // Xử lý mã hóa thực tế
+            finalObfuscatedData = obfuscateString(content);
+
+            // Ẩn loading, hiện khung nhập tên file
+            document.getElementById('loadingSection').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+        }, randomDelay);
+    }
+
+    // Thuật toán làm rối chuỗi nhiều lớp
+    function obfuscateString(text) {
+        const key = Math.floor(Math.random() * 150) + 50;
+        let hexArray = [];
+        for (let i = 0; i < text.length; i++) {
+            let encodedChar = (text.charCodeAt(i) ^ key).toString(16).padStart(2, '0');
+            hexArray.push(encodedChar);
+        }
+        
+        return `/* --- SECURE OBFUSCATED PAYLOAD --- */\n` +
+               `const _0xPayload = "${hexArray.join('')}";\n` +
+               `const _0xKey = ${key};\n` +
+               `function _decodeData(hex, k) {\n` +
+               `    let res = "";\n` +
+               `    for (let i = 0; i < hex.length; i += 2) {\n` +
+               `        res += String.fromCharCode(parseInt(hex.substr(i, 2), 16) ^ k);\n` +
+               `    }\n` +
+               `    return res;\n` +
+               `}\n` +
+               `console.log(_decodeData(_0xPayload, _0xKey));`;
+    }
+
+    // Tải file .txt về máy
+    function downloadFile() {
+        let name = document.getElementById('fileName').value.trim();
+        if (!name) name = "protected_code";
+        if (!name.endsWith('.txt')) name += ".txt";
+
+        const blob = new Blob([finalObfuscatedData], { type: 'text/plain;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = name;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+</script>
+
+</body>
+</html>
