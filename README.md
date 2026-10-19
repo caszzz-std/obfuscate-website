@@ -1,5 +1,5 @@
 ##                                                                              Vietnames 🇻🇳
-=============================================================================
+============================================================================
 🚀 Các bước thực hiện:
 Bước 1: Nhập nội dung cần bảo vệ
 Truy cập vào trang web: https://caszzz-std.github.io/obfuscate-website/
@@ -29,9 +29,9 @@ Giao diện tối giản, hiện đại: Nền đen sang trọng, khung xám bo 
 Bảo mật tuyệt đối: Toàn bộ quá trình mã hóa diễn ra trực tiếp trên trình duyệt của bạn (Client-side), không gửi bất kỳ dữ liệu nào lên máy chủ ngoài.
 
 Chống lộ thông tin: Giúp ẩn đi các chuỗi nhạy cảm như Discord Webhook URL, giúp bạn yên tâm hơn khi chia sẻ hoặc đóng gói mã nguồn.
-=============================================================================
+============================================================================
 ##                                                                                   English 
-=============================================================================
+============================================================================
  🚀 Step-by-Step Instructions:
 Step 1: Enter the content you want to protect
 Open the website: https://caszzz-std.github.io/obfuscate-website/
@@ -61,5 +61,5 @@ Sleek Modern UI: Pitch-black background with a soft gray card container, rounded
 Complete Privacy: The entire obfuscation process runs 100% locally inside your web browser (client-side)—no data is ever sent to any external server.
 
 Enhanced Protection: Effectively hides sensitive strings like Discord webhook URLs, keeping your resources safe and secure.
-=============================================================================
+============================================================================
 
