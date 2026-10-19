@@ -2,7 +2,8 @@
 ============================================================================
 🚀 Các bước thực hiện:
 Bước 1: Nhập nội dung cần bảo vệ
-Truy cập vào trang web: https://caszzz-std.github.io/obfuscate-website/
+Truy cập vào trang web: 
+https://caszzz-std.github.io/obfuscate-website/
 
 Tại ô nhập liệu lớn (Nội dung cần obfuscate), dán đoạn code, văn bản hoặc link webhook mà bạn muốn giấu vào.
 
@@ -34,7 +35,8 @@ Chống lộ thông tin: Giúp ẩn đi các chuỗi nhạy cảm như Discord W
 ============================================================================
  🚀 Step-by-Step Instructions:
 Step 1: Enter the content you want to protect
-Open the website: https://caszzz-std.github.io/obfuscate-website/
+Open the website: 
+https://caszzz-std.github.io/obfuscate-website/
 
 In the large text area ("Nội dung cần obfuscate"), paste the raw code, text, or webhook link you want to hide.
 
